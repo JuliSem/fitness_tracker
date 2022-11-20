@@ -1,6 +1,3 @@
-from typing import Type
-
-
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -149,10 +146,10 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    workout_classes: dict[str, Type[Training]] = {'SWM': Swimming,
-                                                  'RUN': Running,
-                                                  'WLK': SportsWalking
-                                                  }
+    workout_classes: dict = {'SWM': Swimming,
+                             'RUN': Running,
+                             'WLK': SportsWalking
+                             }
     if workout_type not in workout_classes:
         return 'There is no such training'
     return workout_classes[workout_type](*data)
