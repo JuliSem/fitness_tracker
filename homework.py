@@ -1,3 +1,6 @@
+from typing import Type
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
@@ -26,6 +29,7 @@ class Training:
     LEN_STEP: float = 0.65  # Длина шага в метрах
     M_IN_KM: int = 1000  # Метров в километре
     MIN_IN_H: int = 60  # Минут в часе
+    CM_IN_M: int = 100  # Сантиметров в метре
 
     def __init__(self,
                  action: int,  # Действие
@@ -62,6 +66,14 @@ class Running(Training):
     """Тренировка: бег."""
     CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
     CALORIES_MEAN_SPEED_SHIFT: float = 1.79
+    LEN_STEP = 0.65
+
+    def __init__(self,
+                 action: int,
+                 duration: float,
+                 weight: float,
+                 ) -> None:
+        super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
         """Расчёт калорий при беге."""
@@ -79,6 +91,8 @@ class SportsWalking(Training):
     CALORIES_MEAN_HEIGHT_MULTIPLIER: float = 0.029
     KMH_IN_MSEC = 0.278
     CM_IN_M = 100
+    MIN_IN_H = 60
+    LEN_STEP = 0.65
 
     def __init__(self,
                  action: int,
@@ -104,7 +118,7 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
     CALORIES_MEAN_SPEED_SHIFT: float = 1.1
-    CALORIES_WEIGHT_MULTIPLIER: int = 2
+    CALORIES_WEIGHT_MULTIPLIER: float = 2.0
     LEN_STEP: float = 1.38
 
     def __init__(self,
@@ -133,12 +147,12 @@ class Swimming(Training):
         return mean_speed
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: list[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
-    workout_classes: dict = {'SWM': Swimming,
-                             'RUN': Running,
-                             'WLK': SportsWalking
-                             }
+    workout_classes: dict[str, Type[Training]] = {'SWM': Swimming,
+                                                  'RUN': Running,
+                                                  'WLK': SportsWalking
+                                                  }
     return workout_classes[workout_type](*data)
 
 
