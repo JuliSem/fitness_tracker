@@ -144,7 +144,7 @@ class Swimming(Training):
         return mean_speed
 
 
-def read_package(workout_type: str, data: list[int]) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     workout_classes: dict = {'SWM': Swimming,
                              'RUN': Running,
