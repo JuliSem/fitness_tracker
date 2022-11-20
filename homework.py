@@ -89,8 +89,8 @@ class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     CALORIES_MEAN_WEIGHT_MULTIPLIER: float = 0.035
     CALORIES_MEAN_HEIGHT_MULTIPLIER: float = 0.029
-    KMH_IN_MSEC = 0.278
-    CM_IN_M = 100
+    KMH_IN_MSEC: float = 0.278
+    CM_IN_M: int = 100
     MIN_IN_H = 60
     LEN_STEP = 0.65
 
@@ -153,6 +153,8 @@ def read_package(workout_type: str, data: list[int]) -> Training:
                                                   'RUN': Running,
                                                   'WLK': SportsWalking
                                                   }
+    if workout_type not in workout_classes:
+        return 'There is no such training'
     return workout_classes[workout_type](*data)
 
 
