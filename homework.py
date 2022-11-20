@@ -88,7 +88,7 @@ class SportsWalking(Training):
     CALORIES_WEIGHT_MULTIPLIER: float = 0.035
     CALORIES_SPEED_HEIGHT_MULTIPLIER: float = 0.029
     KMH_IN_MSEC: float = 0.278
-    CM_IN_M: int = 100
+    CM_IN_M: float = 100
     MIN_IN_H = 60
     LEN_STEP = 0.65
 
